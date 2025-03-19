@@ -15,6 +15,7 @@ localStorage.setItem('perros', JSON.stringify(perros));
 
 let contadorAdopciones = parseInt(localStorage.getItem('contadorAdopciones')) || 0;
 
+// funcion para contar animales adoptados
 function incrementarContadorAdopciones() {
     contadorAdopciones++;
     localStorage.setItem('contadorAdopciones', contadorAdopciones);
@@ -37,7 +38,7 @@ function mostrarAnimales(animales) {
 }
 
 
-
+// funcion para eliminar animales adoptados del storage y array
 function animalAdoptado(animales, especie, nombre) {
     const index = animales.findIndex(animal => animal.nombre.toLowerCase() === nombre.toLowerCase());
     if (index !== -1) {
@@ -89,6 +90,7 @@ document.getElementById('adoptar').addEventListener('click', () => {
     }
 });
 
+// funcion para registrar mascotas nuevas para adoptar
 document.getElementById('registrar-mascota').addEventListener('click', () => {
     const especie = document.getElementById('nueva-especie').value;
     const nombre = document.getElementById('nueva-nombre').value;
