@@ -3,10 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <title>Adopt Me</title>
 </head>
 <body>
     <h1>Adopt Me</h1>
+    <div id="adopcion-form">
+        <h2>Adoptar una Mascota</h2>
+
+        <label for="especie">Especie:</label>
+
+        <select id="especie">
+            <option value="gato">Gato</option>
+            <option value="perro">Perro</option>
+        </select>
+
+        <button id="mostrar-animales">Mostrar Animales</button>
+    </div>
+    
+    <div id="animales-disponibles"></div>
+
+    <div id="adoptar-form">
+
+        <h2>Adoptar</h2>
+        <label for="nombre-adoptar">Nombre del animal:</label>
+        <input type="text" id="nombre-adoptar">
+        <button id="adoptar">Adoptar</button>
+    </div>
+
+    <div id="nueva-adopcion-form">
+
+        <h2>Registrar Nueva Mascota</h2>
+        
+        <label for="nueva-especie">Especie:</label>
+        <input type="text" id="nueva-especie">
+        <label for="nueva-nombre">Nombre:</label>
+        <input type="text" id="nueva-nombre">
+        <label for="nueva-edad">Edad:</label>
+        <input type="number" id="nueva-edad">
+        <label for="nueva-sexo">Sexo:</label>
+        <input type="text" id="nueva-sexo">
+        <button id="registrar-mascota">Registrar Mascota</button>
+    </div>
+    <div id="contador-adopciones"></div>
+    <div>
+        <img src="./img/gato1.jpg" alt="">
+        <img src="./img/perro 1.jpg" alt="">
+        <img src="./img/gato2.jpg" alt="">
+        <img src="./img/perro2.jpg" alt="">
+    </div>
     <script src="main.js"></script>
 </body>
 </html>

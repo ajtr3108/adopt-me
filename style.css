@@ -1,0 +1,57 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    text-align: center;
+}
+
+h1{
+    color: white;
+    text-align: center;
+    background-color: plum;
+    font-size: 50px;
+}
+
+h2{
+    color: lightblue;
+}
+
+img{
+width: 200px;
+height: 300px;
+margin: 10px 50px;
+}
+button{
+    background-color: plum;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border-color: plum;
+    margin: 5px;
+}
+
+#adopcion-form{
+    text-align: center;
+    margin-top: 20px;
+}
+
+#adopcion-form select {
+    background-color: lightblue;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid lightblue;
+    margin: 5px;
+    font-size: 16px;
+}
+
+#adopcion-form select option {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid lightblue;
+}
+
+#adopcion-form select option:hover {
+    background-color: plum;
+    color: white;
+}
