@@ -50,26 +50,35 @@ function animalAdoptado(animales, especie, nombre) {
 function adoptarAnimal(animales, especie) {
     const nombre = document.getElementById('nombre-adoptar').value;
     let encontrado = false;
-    for (let animal of animales) {
-        if (animal.nombre.toLowerCase() === nombre.toLowerCase()) {
-            mostrarMensaje(`¡Felicidades! Has adoptado a ${animal.nombre}`);
-            encontrado = true;
-            incrementarContadorAdopciones();
-            animalAdoptado(animales, especie === "gato" ? 'gatos' : 'perros', animal.nombre);
-            break;
-        }
-    }
-    if (!encontrado) {
-        mostrarMensaje("No se encontró el animal buscado.");
-    }
-}
 
-function mostrarMensaje(mensaje, tipo) {
-    const mensajeDiv = document.createElement('div');
-    mensajeDiv.className = `mensaje ${tipo}`;
-    mensajeDiv.innerText = mensaje;
-    const contadorDiv = document.getElementById('contador-adopciones');
-    contadorDiv.parentNode.insertBefore(mensajeDiv, contadorDiv);
+    new Promise((resolve, reject) => {
+        setTimeout(() => {
+            for (let animal of animales) {
+                if (animal.nombre.toLowerCase() === nombre.toLowerCase()) {
+                    encontrado = true;
+                    resolve(animal); // Resolvemos la promesa si se encuentra el animal
+                    break;
+                }
+            }
+            if (!encontrado) reject("Animal no encontrado!"); // Rechazamos si no se encuentra
+        }, 1000);
+    })
+    .then(animal => {
+        Swal.fire({
+            title: "Felicidades!",
+            text: `Has adoptado a ${animal.nombre}!`,
+            icon: "success"
+        });
+        incrementarContadorAdopciones();
+        animalAdoptado(animales, especie === "gato" ? 'gatos' : 'perros', animal.nombre);
+    })
+    .catch(error => {
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: error,
+        });
+    });
 }
 
 document.getElementById('mostrar-animales').addEventListener('click', () => {
@@ -101,13 +110,25 @@ document.getElementById('registrar-mascota').addEventListener('click', () => {
     if (especie === "gato") {
         gatos.push(nuevaMascota);
         localStorage.setItem('gatos', JSON.stringify(gatos));
-        mostrarMensaje("Gato registrado exitosamente.", 'success');
+        Swal.fire({
+            title: "Felicidades!",
+            text: "Gato registrado exitosamente.",
+            icon: "success"
+          });
     } else if (especie === "perro") {
         perros.push(nuevaMascota);
         localStorage.setItem('perros', JSON.stringify(perros));
-        mostrarMensaje("Perro registrado exitosamente.", 'success');
+        Swal.fire({
+            title: "Felicidades!",
+            text: "Perro registrado exitosamente.",
+            icon: "success"
+        });
     } else {
-        mostrarMensaje("Especie no válida", 'error');
+        ;  Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "especie no valida!",
+          });
     }
 });
 
@@ -119,5 +140,39 @@ class NuevaMascota {
         this.sexo = sexo;
     }
 }
+
+function obtenerImagenesGatos() {
+    fetch('https://api.thecatapi.com/v1/images/search?limit=5')
+        .then(response => response.json())
+        .then(data => {
+            const contenedor = document.getElementById('imagenes-gatos');
+            contenedor.innerHTML = ""; // Limpiar contenido previo
+            data.forEach(gato => {
+                const img = document.createElement('img');
+                img.src = gato.url;
+                contenedor.appendChild(img);
+            });
+        })
+        .catch(error => console.error('Error al obtener imágenes de gatos:', error));
+}
+
+document.getElementById('mostrar-imagenes-gatos').addEventListener('click', obtenerImagenesGatos);
+
+function obtenerImagenesPerros() {
+    fetch('https://api.thedogapi.com/v1/images/search?limit=5')
+        .then(response => response.json())
+        .then(data => {
+            const contenedor = document.getElementById('imagenes-perros');
+            contenedor.innerHTML = ""; // Limpiar contenido previo
+            data.forEach(perro => {
+                const img = document.createElement('img');
+                img.src = perro.url;
+                contenedor.appendChild(img);
+            });
+        })
+        .catch(error => console.error('Error al obtener imágenes de perros:', error));
+}
+
+document.getElementById('mostrar-imagenes-perros').addEventListener('click', obtenerImagenesPerros);
 
 mostrarContadorAdopciones();
